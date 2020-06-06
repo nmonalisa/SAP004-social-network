@@ -1,7 +1,7 @@
-import { example } from './data.js';
+// import { example } from './data.js';
 
-const generalFeed = () => {
-  document.querySelector('#root').textContent = example('Feed Geral');
+export const generalFeed = () => {
+  const containerFeed = document.createElement('div');
+  const templateFeed = 'Feed Pessoal';
+  containerFeed.innerHTML = templateFeed;
 };
-
-export { generalFeed };

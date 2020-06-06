@@ -1,6 +1,5 @@
-import { example } from './data.js';
-
-const configurations = () => {
-  document.querySelector('#root').textContent = example('Configurações');
+export const configurations = () => {
+  const containerConfig = document.createElement('div');
+  const templateConfig = 'Página de configurações';
+  containerConfig.innerHTML = templateConfig;
 };
-export { configurations };
