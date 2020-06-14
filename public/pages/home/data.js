@@ -4,7 +4,10 @@ export const signIn = (email, password, mexirica) => {
     .signInWithEmailAndPassword(email, password)
     .then((result) => {
       window.location.hash = '#generalFeed';
+<<<<<<< HEAD
       return result;
+=======
+>>>>>>> 3f125599380b2363bc1b4b5cff43fc3ec9ef522f
     })
     .catch(error => mexirica(error));
 };
