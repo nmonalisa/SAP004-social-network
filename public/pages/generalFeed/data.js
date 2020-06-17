@@ -46,7 +46,7 @@ export const readPost = (callback) => {
           user,
           data,
           text,
-          code: doc.id
+          code: doc.id,
         });
       });
       callback(post);
@@ -60,19 +60,5 @@ export const editPost = (newText, postID) => {
     .collection('posts')
     .doc(postID).update({ text: newText })
     .then(() => console.log('Postagem editada com sucesso'))
-    .catch(() => console.log('Ops!Postagem não editada'));
-};
-
-export const getOriginalPostById = (postID) => {
-  // console.log ('estou recuperando')
-  firebase
-    .firestore()
-    .collection('posts')
-    .doc(postID)
-    .get()
-    .then((doc) => {
-      console.log(doc.data().text);
-      return doc.data().text;
-    })
     .catch(() => console.log('Ops!Postagem não editada'));
 };

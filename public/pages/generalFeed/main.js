@@ -3,11 +3,10 @@ import {
   createPost,
   readPost,
   editPost,
-  getOriginalPostById,
 } from './data.js';
 
 
-// Funções chamadas na criação do template da página (function generalFeed())
+// Funções auxiliares chamadas dentro das funções que criam a página e os posts
 const setLogOutOnButton = () => {
   document.querySelector('.signOut').addEventListener('click', (event) => {
     event.preventDefault();
@@ -23,14 +22,21 @@ const clearPostArea = () => {
   document.querySelector('#post-area').innerHTML = '';
 };
 
+const getChangesFromEditedPost = (listener, newText, postID) => listener.addEventListener('click', () => {
+  editPost(newText, postID);
+});
+
 const resetPost = (postList) => {
   clearPostArea();
   postList.forEach(loadPostTemplate);
 };
 
+// ---------------------------
+
+// Funções principais:
+// Manipulação dos elementos da página (generalFeed) e das postagens (loadPostTemplate)
+
 export const generalFeed = () => {
-  // Criar elementos gerais da página
-  // Os posts individuais serão criados de forma dinâmica dentro da tag <main #post-area>
   document.querySelector('#root').innerHTML = '';
   const containerFeed = document.createElement('div');
   containerFeed.innerHTML = `
@@ -73,24 +79,20 @@ export const generalFeed = () => {
   `;
   document.querySelector('#root').appendChild(containerFeed);
 
-  // Chamada das funções
   setLogOutOnButton();
   getTextToPublish();
   readPost(resetPost);
 };
 
-// Função de edição das postagens chamadas na criação de dos posts individuais
-//  (function loadPostTemplate)
-const getValuesFromEditedPost = (listener, newText, postID) => listener.addEventListener('click', () => {
-  editPost(newText.value, postID.value);
-});
-const discartChanges = (listener, postID) => listener.addEventListener('click', () => {
-  getOriginalPostById(postID.value);
-});
 
-
-// Tag data com código único de cada post no bd. Essa tag não é renderizada na tela.
-const loadPostTemplate = ({ code, user, data, text }) => {
+// Criar elementos de posts individuais
+const loadPostTemplate = ({
+  code,
+  user,
+  data,
+  text,
+}) => {
+  // Tag <data> com código único de cada post no banco de dados.
   const postBox = document.createElement('div');
   postBox.innerHTML = `
   <data value=${code}></data>
@@ -100,7 +102,6 @@ const loadPostTemplate = ({ code, user, data, text }) => {
   <input disabled class='text' type='text' value='${text}'>
   <div class='save-btn-area display-none''>
     <button class='edit-save-btn' type='button'>Salvar</button>
-    <button class='edit-cancel-btn' type='button'>Cancelar</button>
   </div>
   <footer class='footer-post-box'>
     <div>Curtidas</div>
@@ -112,11 +113,10 @@ const loadPostTemplate = ({ code, user, data, text }) => {
   postBox.classList.add('post-area');
   document.querySelector('#post-area').appendChild(postBox);
 
-  // Programando manipulação dos elementos do template na edição das postagens:
+  // Manipulação dos elementos do template para permitir edição das postagens:
   postBox.querySelector('.edit-btn').addEventListener('click', () => {
     postBox.querySelector('.text').removeAttribute('disabled');
     postBox.querySelector('.save-btn-area').classList.remove('display-none');
-    getValuesFromEditedPost(postBox.querySelector('.edit-save-btn'), postBox.querySelector('.text'), postBox.getElementsByTagName('data')[0]);
-    discartChanges(postBox.querySelector('.edit-cancel-btn'), postBox.getElementsByTagName('data')[0]);
+    getChangesFromEditedPost(postBox.querySelector('.edit-save-btn'), postBox.querySelector('.text').value, postBox.getElementsByTagName('data')[0].value);
   });
 };
