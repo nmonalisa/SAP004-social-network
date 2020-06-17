@@ -56,6 +56,7 @@ export const generalFeed = () => {
           </div>
         </nav>
     </header>
+
     <section class='profile-area'>
       <figure>
         <img class='photo'>
@@ -66,6 +67,8 @@ export const generalFeed = () => {
         <h5>Descrição</h5>
       </div>
     </section>
+
+
     <section class='share-area'>
       <textarea id='postText' placeholder='O que você quer compartilhar?'></textarea>
       <div class='share-area-buttons'>
@@ -75,6 +78,8 @@ export const generalFeed = () => {
     </section>
     <section id='post-area'>
     </section>
+
+    <footer class='footer-page-feed'>Rodapé</footer>
   </div>
   `;
   document.querySelector('#root').appendChild(containerFeed);
@@ -96,10 +101,10 @@ const loadPostTemplate = ({
   const postBox = document.createElement('div');
   postBox.innerHTML = `
   <data value=${code}></data>
-  <header class='title-post-box'>
+  <header class='title-post-box green'>
     <div>${user}</div><div>${data}</div>
   </header>
-  <input disabled class='text' type='text' value='${text}'>
+  <input disabled class='text post-text' type='text' value='${text}'>
   <div class='save-btn-area display-none''>
     <button class='edit-save-btn' type='button'>Salvar</button>
   </div>

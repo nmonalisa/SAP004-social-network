@@ -190,8 +190,18 @@ input {
   padding: 0px;
 }
 
+.title-post-box,
+.post-text {
+  padding: 5px 10px;
+}
+
 .title-post-box {
-  background-color: lightgray;
+  font-size: 0.7em;
+  border-radius: 3px 3px 0px 0px;
+}
+
+.post-text {
+  height: 70px;
 }
 
 .footer-post-box {
@@ -200,6 +210,14 @@ input {
 
 .display-none {
   display: none;
+}
+
+.footer-page-feed {
+  height: 30px;
+  background-color: blue;
+  color: white;
+  text-align: center;
+  line-height: 30px;
 }
 
 
