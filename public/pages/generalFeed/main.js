@@ -40,23 +40,23 @@ export const generalFeed = () => {
   document.querySelector('#root').innerHTML = '';
   const containerFeed = document.createElement('div');
   containerFeed.innerHTML = `
-  <div class='boxFeed'>
-    <header>
-      <nav class='navbar'>
-          <figure>
-              <img class='icon-circle icon-logo' src="../../assets/logo_small.jpg" alt="Logotipo">
-          </figure>
-          <div>
-            <button class='circle yellow'>
-            <img class='icon-circle' src='../../assets/settings.png'>
-            </button>
-            <button class='circle signOut orange'>
-            <img class='icon-circle' src='../../assets/logout.png'>
-            </button>
-          </div>
-        </nav>
-    </header>
-
+  <div class='general-container'>
+  <header>
+  <nav class='navbar'>
+      <figure>
+          <img class='icon-circle icon-logo' src="../../assets/logo_small.jpg" alt="Logotipo">
+      </figure>
+      <div>
+        <button class='circle yellow'>
+        <img class='icon-circle' src='../../assets/settings.png'>
+        </button>
+        <button class='circle signOut orange'>
+        <img class='icon-circle' src='../../assets/logout.png'>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <div class='box-feed'>
     <section class='profile-area'>
       <figure>
         <img class='photo'>
@@ -67,8 +67,7 @@ export const generalFeed = () => {
         <h5>Descrição</h5>
       </div>
     </section>
-
-
+    <div class='share-and-post'>
     <section class='share-area'>
       <textarea id='postText' placeholder='O que você quer compartilhar?'></textarea>
       <div class='share-area-buttons'>
@@ -76,11 +75,13 @@ export const generalFeed = () => {
         <button id='publish-btn' class='btn btn-small purple'>Publicar</button>    
       </div> 
     </section>
-    <section id='post-area'>
-    </section>
-
-    <footer class='footer-page-feed'>Rodapé</footer>
+    <section id='post-area' class='posts-container'>
+      </section>
+    </div>
   </div>
+  </div>
+  
+  
   `;
   document.querySelector('#root').appendChild(containerFeed);
 

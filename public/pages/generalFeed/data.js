@@ -1,7 +1,7 @@
 // Data da publicação:
 const getData = () => {
   const data = new Date();
-  return data.toLocaleDateString();
+  return data.toLocaleString();
 };
 
 export const logOut = () => {
@@ -11,10 +11,7 @@ export const logOut = () => {
     .then(() => {
       window.location.hash = '#login';
     })
-    .catch((error) => {
-      console.log(error.code);
-      console.log(error.message);
-    });
+    .catch(error => error);
 };
 
 export const createPost = (postText) => {
@@ -38,6 +35,7 @@ export const readPost = (callback) => {
   firebase
     .firestore()
     .collection('posts')
+    .orderBy('data', 'desc')
     .onSnapshot((snapshot) => {
       const post = [];
       snapshot.forEach((doc) => {

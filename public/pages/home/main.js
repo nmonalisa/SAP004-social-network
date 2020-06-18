@@ -34,7 +34,7 @@ export const home = () => {
   const signInButton = containerLogin.querySelector('.signIn');
   const errorLogin = containerLogin.querySelector('#error-login');
 
-  const inError = (error) => {
+  const onError = (error) => {
     if (errorCodes[error.code]) {
       errorLogin.innerHTML = errorCodes[error.code];
     } else {
@@ -44,7 +44,7 @@ export const home = () => {
 
   signInButton.addEventListener('click', (event) => {
     event.preventDefault();
-    signIn(containerLogin.querySelector('#emailArea').value, containerLogin.querySelector('#passwordArea').value, inError);
+    signIn(containerLogin.querySelector('#emailArea').value, containerLogin.querySelector('#passwordArea').value, onError);
   });
 
   googleButton.addEventListener('click', () => {

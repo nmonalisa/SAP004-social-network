@@ -1,6 +1,4 @@
-import { generalFeed } from '../generalFeed/main.js';
-
-export const signIn = (email, password, inError) => {
+export const signIn = (email, password, onError) => {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
@@ -8,7 +6,7 @@ export const signIn = (email, password, inError) => {
       window.location.hash = '#generalFeed';
       return result;
     })
-    .catch(error => inError(error));
+    .catch(error => onError(error));
 };
 
 export const loginWithGoogle = () => {

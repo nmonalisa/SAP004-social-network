@@ -257,3 +257,31 @@ input {
 
 
 /*Feed geral*/
+
+@media only screen and (min-width: 1024px) {
+  .profile-area {
+    flex-direction: column;
+    width: 25%;
+    padding-top: 20px;
+  }
+  .share-area,
+  .post-area {
+    width: 50%;
+    height: fit-content;
+  }
+  .post-area {
+    margin-top: 3%;
+  }
+  .box-feed {
+    display: flex;
+    flex-direction: row;
+    max-width: 75%;
+    margin: auto;
+  }
+  .share-and-post {
+    width: 75%;
+  }
+  .posts-container {
+    width: 100%;
+  }
+}

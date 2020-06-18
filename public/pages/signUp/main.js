@@ -15,7 +15,7 @@ export const signUp = () => {
   <div class='box-item'>
   <h3>Seja bem-vinde!</h3>
   <form method='post'>
-  <input type="text" placeholder="Insira seu nome" id="user-name" class='loginArea'><br>
+  <input type="text" placeholder="Insira seu nome" id="username" class='loginArea'><br>
   <input type="email" placeholder="Insira um e-mail" id="register-email" class="loginArea"><br>
   <input type="password" placeholder="Insira uma senha" id="register-password" class="loginArea"><br><br>
   <div class="error-message" id="singup-error"></div>
