@@ -48,5 +48,5 @@ window.addEventListener('load', () => {
       //   break;
     default:
       home();
-  };
+  }
 });

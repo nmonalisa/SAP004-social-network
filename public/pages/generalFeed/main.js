@@ -5,7 +5,9 @@ import {
   editPost,
   deletePost,
   sendImageToDatabase,
+  likePosts,
   changeProfileImage,
+  commentPosts,
 } from './data.js';
 
 // Funções auxiliares chamadas na criação do template da página (function generalFeed())
@@ -88,11 +90,13 @@ const visibilityOfElementsToCurrentUser = (postBox, user) => {
 const loadPostTemplate = (postList) => {
   document.querySelector('#post-area').innerHTML = '';
   postList.forEach(({
+    code,
     user,
     data,
     text,
+    likes,
+    comments,
     url,
-    code,
   }) => {
     const postBox = document.createElement('div');
     postBox.innerHTML = `
@@ -113,14 +117,27 @@ const loadPostTemplate = (postList) => {
   <div class='save-btn-area display-none''>
     <button class='edit-save-btn' type='button'>Salvar</button>
   </div>
-  
+
   <footer class='footer-post-box'>
-    <div><img id='comment-btn' class='post-area-icon' src="../../assets/comments.png" alt="Comments Icon"></div>
-    <div><img class='post-area-icon' id='like-icon' src="../../assets/like.png" alt="Like Icon"></div>
-    <div class='post-area-icon' id='likes-counter'></div>
+    <div><img class='post-area-icon' id="like-icon" src="../../assets/like.png" alt="Like Icon"></div>
+    <div class='post-area-icon' id='likes-counter'>${likes.length}</div>  
+    <div><img class='post-area-icon' src="../../assets/comments.png" alt="Comments Icon">${comments}</div>
+    ${comments.forEach(({ name, textComment }) => ` <
+      div >
+      <
+      p > $ { name } < /p> <
+      p > $ { textComment } < /p> <
+      /div>
+    `)}
+    <textarea id="text-comment"></textarea>
+    <button id="send-comment">Comentar</button>
     <div class='edit-btn'><img class='post-area-icon' src="../../assets/pencil.png" alt="Edit Icon"></div>
   </footer>
-  `;
+          `;
+    console.log(comments);
+    postBox.querySelector('#send-comment').addEventListener('click', () => commentPosts(code, postBox.querySelector('#text-comment').value));
+    postBox.querySelector('#like-icon').addEventListener('click', () => likePosts(code));
+
     postBox.classList.add('post-area');
     document.querySelector('#post-area').appendChild(postBox);
 
@@ -135,55 +152,93 @@ const loadPostTemplate = (postList) => {
 export const generalFeed = () => {
   document.querySelector('#root').innerHTML = '';
   const containerFeed = document.createElement('div');
-  containerFeed.innerHTML = `
-  <header>
-    <nav class='navbar-page-feed'>
-      <div>
-        <button class='circle orange'>
-        <img class='icon-circle' src='../../assets/settings.png'>
-        </button>
-      </div>
-      <figure class='navbar-page-item-logo'>
-        <img class='icon-logo' src="../../assets/logo_small.jpg" alt="Logotipo">
-        <span>Rainbow!</span>
-      </figure>
-      <div>
-        <button class='circle signOut yellow'>
-        <img class='icon-circle' src='../../assets/logout.png'>
-        </button>
-      </div>
-    </nav>
-  </header>
-  <div class='box-feed'>
-    <section class='profile-area'>
-      <div class='profile-area-theme'></div>
-        <figure class='profile-area-photo-box'>
-           <img class='photo'>
-           <input type="file" id="input-file-profileImg" class='input-file-profileImg transparency' accept=".jpg, .jpeg, .png">
-        </figure>
-        <div class='name-profile-area'>
-          <h3 id='name-user'></h3>
-          <h4>[Descrição]</h4>
-        </div>
-    </section>
-      <div class='share-and-post'>
-        <section class='share-area'>
-          <textarea id='postText' placeholder='O que você quer compartilhar?'></textarea>
-           <div class='share-area-buttons'>
-            <button id='publish-img-btn' class='circle violet'><img class='icon-circle' src='../../assets/camera.png'></button>
-            <div class='publish-img-form-box transparency'>
-              <form method="post">
-                <input type="file" id="image_uploads" class='share-area-img-btn' accept=".jpg, .jpeg, .png">
-               </form>
-            </div>
-            <button id='publish-btn' class='btn btn-small publish-btn purple'>Publicar</button>
-          </div>
-        </section>
-        <section id='post-area' class='posts-container'>
-        </section>
-      </div>
-  </div>
-  `;
+  containerFeed.innerHTML = ` <
+          header >
+            <
+            nav class = 'navbar-page-feed' >
+            <
+            div >
+            <
+            button class = 'circle orange' >
+            <
+            img class = 'icon-circle'
+          src = '../../assets/settings.png' >
+            <
+            /button> <
+            /div> <
+            figure class = 'navbar-page-item-logo' >
+            <
+            img class = 'icon-logo'
+          src = "../../assets/logo_small.jpg"
+          alt = "Logotipo" >
+            <
+            span > Rainbow! < /span> <
+            /figure> <
+            div >
+            <
+            button class = 'circle signOut yellow' >
+            <
+            img class = 'icon-circle'
+          src = '../../assets/logout.png' >
+            <
+            /button> <
+            /div> <
+            /nav> <
+            /header> <
+            div class = 'box-feed' >
+            <
+            section class = 'profile-area' >
+            <
+            div class = 'profile-area-theme' > < /div> <
+            figure class = 'profile-area-photo-box' >
+            <
+            img class = 'photo' >
+            <
+            input type = "file"
+          id = "input-file-profileImg"
+          class = 'input-file-profileImg transparency'
+          accept = ".jpg, .jpeg, .png" >
+            <
+            /figure> <
+            div class = 'name-profile-area' >
+            <
+            h3 id = 'name-user' > < /h3> <
+            h4 > [Descrição] < /h4> <
+            /div> <
+            /section> <
+            div class = 'share-and-post' >
+            <
+            section class = 'share-area' >
+            <
+            textarea id = 'postText'
+          placeholder = 'O que você quer compartilhar?' > < /textarea> <
+            div class = 'share-area-buttons' >
+            <
+            button id = 'publish-img-btn'
+          class = 'circle violet' > < img class = 'icon-circle'
+          src = '../../assets/camera.png' > < /button> <
+            div class = 'publish-img-form-box transparency' >
+            <
+            form method = "post" >
+            <
+            input type = "file"
+          id = "image_uploads"
+          class = 'share-area-img-btn'
+          accept = ".jpg, .jpeg, .png" >
+            <
+            /form> <
+            /div> <
+            button id = 'publish-btn'
+          class = 'btn btn-small publish-btn purple' > Publicar < /button> <
+            /div> <
+            /section> <
+            section id = 'post-area'
+          class = 'posts-container' >
+            <
+            /section> <
+            /div> <
+            /div>
+          `;
   document.querySelector('#root').appendChild(containerFeed);
 
   // Chamada das funções
