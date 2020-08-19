@@ -71,6 +71,6 @@ Além disso, o usuário também consegue alterar sua foto de perfil quando logad
 
 [Thalita Gonçalves](https://github.com/thalitagoncalves/)
 
-#### O projeto foi proposto no Bootcamp @Laboratoria.
+#### O projeto foi realizado no bootcamp de programação front-end da @Laboratoria (SAP004).
 
 
